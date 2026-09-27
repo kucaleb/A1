@@ -12,14 +12,14 @@
 
 namespace {
 
-// Characters that may belong to a candidate token.
+// Characters that may belong to a candidate token. Written by Claude
 bool isTokenChar(char c) {
     return std::isdigit(static_cast<unsigned char>(c)) || c == '.' || c == ':';
 }
 
 // Parses an unsigned decimal field of s[begin, end) by hand.
 // Requirements: 1..maxDigits digits, no leading zero unless the field is
-// exactly "0", value <= maxValue. Returns true and sets outValue on success.
+// exactly "0", value <= maxValue. Returns true and sets outValue on success. Written by Claude
 bool parseField(const std::string& s, size_t begin, size_t end,
                 size_t maxDigits, unsigned long maxValue,
                 unsigned long& outValue) {
@@ -40,7 +40,7 @@ bool parseField(const std::string& s, size_t begin, size_t end,
 
 // Validates one complete token s[begin, end) against the grammar
 //   octet '.' octet '.' octet '.' octet [ ':' port ]
-// The whole token must match; no partial matches are accepted.
+// The whole token must match; no partial matches are accepted. Written by Claude
 bool parseToken(const std::string& s, size_t begin, size_t end,
                 unsigned long& outAddress, int& outPort) {
     unsigned long address = 0;
@@ -85,7 +85,7 @@ bool parseToken(const std::string& s, size_t begin, size_t end,
 // Returns true if a valid address was found, false otherwise.
 // On success: outAddress holds the 32-bit value,
 // and outPort holds the port number, or -1 if no port was present.
-// On failure: outAddress is set to 0 and outPort is set to -1.
+// On failure: outAddress is set to 0 and outPort is set to -1. Written by Claude
 bool extractIPv4(const std::string& str, unsigned long& outAddress, int& outPort) {
     outAddress = 0;
     outPort = -1;
@@ -125,6 +125,7 @@ void usage_and_die(std::ostream& o) {
 }
 
 int main(int argc, char* argv[]) { // Caleb added argc and argv support for testing
+    // segment modified by Caleb to allow for file inputs
     std::istream* input = &std::cin; // general input for either cin or a file
     std::ostream* output = &std::cout; // general output for either cout or a file
     std::ifstream i_file;
@@ -148,6 +149,7 @@ int main(int argc, char* argv[]) { // Caleb added argc and argv support for test
             }
         }
     }
+    // end segment modified by Caleb other then changing std::cout to *output below. 
 
     std::string line;
     while (true) {
